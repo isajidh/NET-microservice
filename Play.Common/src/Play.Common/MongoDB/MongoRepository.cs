@@ -34,7 +34,7 @@ namespace Play.Common.MongoDB
 
         public async Task<T> GetAsync(Guid id)
         {
-            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.id, id);
+            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
             return await dbCollection.Find(filter).FirstOrDefaultAsync();
         }
         public async Task<T> GetAsync(Expression<Func<T, bool>> filter)
@@ -58,13 +58,13 @@ namespace Play.Common.MongoDB
             {
                 throw new ArgumentNullException(nameof(entity));
             }
-            FilterDefinition<T> filter = filterBuilder.Eq(existingEntity => existingEntity.id, entity.id);
+            FilterDefinition<T> filter = filterBuilder.Eq(existingEntity => existingEntity.Id, entity.Id);
             await dbCollection.ReplaceOneAsync(filter, entity);
         }
 
         public async Task RemoveAsync(Guid id)
         {
-            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.id, id);
+            FilterDefinition<T> filter = filterBuilder.Eq(entity => entity.Id, id);
             await dbCollection.DeleteOneAsync(filter);
         }//-------------------------
 
